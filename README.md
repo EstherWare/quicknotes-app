@@ -9,6 +9,7 @@ QuickNotes is a small browser-based note-taking app for creating, organizing, se
 - Search notes without regard to letter case
 - Delete individual notes
 - Save notes in local storage so they remain after a refresh
+- Switch between comfortable light and dark themes
 - Responsive layout for desktop and mobile screens
 
 ## Run locally

@@ -5,7 +5,9 @@ const notesList = document.querySelector("#notes-list");
 const noteCount = document.querySelector("#note-count");
 const errorMessage = document.querySelector("#error-message");
 const searchInput = document.querySelector("#search-input");
+const themeToggle = document.querySelector("#theme-toggle");
 const NOTES_STORAGE_KEY = "quicknotes-notes";
+const THEME_STORAGE_KEY = "quicknotes-theme";
 
 let notes = [];
 
@@ -71,6 +73,17 @@ function saveNotes() {
   localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(notes));
 }
 
+function updateThemeButton() {
+  const isDark = document.body.classList.contains("dark");
+  themeToggle.textContent = isDark ? "Light mode" : "Dark mode";
+}
+
+themeToggle.addEventListener("click", () => {
+  const isDark = document.body.classList.toggle("dark");
+  localStorage.setItem(THEME_STORAGE_KEY, isDark ? "dark" : "light");
+  updateThemeButton();
+});
+
 noteForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
@@ -112,4 +125,14 @@ if (savedNotes) {
   }
 }
 
+const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+if (
+  savedTheme === "dark" ||
+  (savedTheme === null &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches)
+) {
+  document.body.classList.add("dark");
+}
+
+updateThemeButton();
 render();
