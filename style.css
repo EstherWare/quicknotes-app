@@ -159,6 +159,15 @@ button:hover {
   list-style: none;
 }
 
+#clear-all {
+  background: transparent;
+  color: var(--primary);
+}
+
+#clear-all:hover {
+  background: var(--border);
+}
+
 .note-card {
   margin: 1rem 0;
   padding: 1rem;

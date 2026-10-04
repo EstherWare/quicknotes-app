@@ -8,6 +8,7 @@ QuickNotes is a small browser-based note-taking app for creating, organizing, se
 - Validate empty notes and notes longer than 200 characters
 - Search notes without regard to letter case
 - Delete individual notes
+- Clear all notes after confirmation
 - Save notes in local storage so they remain after a refresh
 - Switch between comfortable light and dark themes
 - Responsive layout for desktop and mobile screens

@@ -6,6 +6,7 @@ const noteCount = document.querySelector("#note-count");
 const errorMessage = document.querySelector("#error-message");
 const searchInput = document.querySelector("#search-input");
 const themeToggle = document.querySelector("#theme-toggle");
+const clearAllButton = document.querySelector("#clear-all");
 const NOTES_STORAGE_KEY = "quicknotes-notes";
 const THEME_STORAGE_KEY = "quicknotes-theme";
 
@@ -65,6 +66,16 @@ notesList.addEventListener("click", (event) => {
 
   const noteId = event.target.dataset.noteId;
   notes = notes.filter((note) => note.id !== noteId);
+  saveNotes();
+  render();
+});
+
+clearAllButton.addEventListener("click", () => {
+  if (!confirm("Delete all notes?")) {
+    return;
+  }
+
+  notes = [];
   saveNotes();
   render();
 });
