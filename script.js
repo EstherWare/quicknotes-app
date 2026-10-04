@@ -2,6 +2,8 @@ const noteForm = document.querySelector("#note-form");
 const noteInput = document.querySelector("#note-input");
 const noteCategory = document.querySelector("#note-category");
 const notesList = document.querySelector("#notes-list");
+const noteCount = document.querySelector("#note-count");
+const errorMessage = document.querySelector("#error-message");
 
 let notes = [];
 
@@ -11,6 +13,10 @@ function categoryClass(category) {
 
 function render() {
   notesList.replaceChildren();
+  noteCount.textContent =
+    notes.length === 0
+      ? "You have no notes yet."
+      : `You have ${notes.length} ${notes.length === 1 ? "note" : "notes"}.`;
 
   notes.forEach((note) => {
     const item = document.createElement("li");
@@ -36,11 +42,27 @@ function render() {
   });
 }
 
+notesList.addEventListener("click", (event) => {
+  if (!(event.target instanceof HTMLButtonElement)) {
+    return;
+  }
+
+  const noteId = event.target.dataset.noteId;
+  notes = notes.filter((note) => note.id !== noteId);
+  render();
+});
+
 noteForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
   const text = noteInput.value.trim();
-  if (!text) {
+  if (text.length === 0) {
+    errorMessage.textContent = "Please type a note first.";
+    return;
+  }
+
+  if (text.length > 200) {
+    errorMessage.textContent = "Notes must be 200 characters or fewer.";
     return;
   }
 
@@ -52,6 +74,7 @@ noteForm.addEventListener("submit", (event) => {
   });
 
   noteInput.value = "";
+  errorMessage.textContent = "";
   render();
 });
 
