@@ -18,15 +18,19 @@ function categoryClass(category) {
 
 function render() {
   notesList.replaceChildren();
-  noteCount.textContent =
-    notes.length === 0
-      ? "You have no notes yet."
-      : `You have ${notes.length} ${notes.length === 1 ? "note" : "notes"}.`;
-
   const searchTerm = searchInput.value.trim().toLowerCase();
   const visibleNotes = notes.filter((note) =>
     note.text.toLowerCase().includes(searchTerm),
   );
+
+  if (searchTerm) {
+    noteCount.textContent = `Showing ${visibleNotes.length} of ${notes.length} notes`;
+  } else {
+    noteCount.textContent =
+      notes.length === 0
+        ? "You have no notes yet."
+        : `You have ${notes.length} ${notes.length === 1 ? "note" : "notes"}.`;
+  }
 
   if (visibleNotes.length === 0 && searchTerm) {
     const emptyMessage = document.createElement("li");
